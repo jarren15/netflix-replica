@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Link, useParams, Navigate } from 'react-router-dom';
 import ReactPlayer from 'react-player';
 import Button from 'carbon-components-react/lib/components/Button';
-import { Add } from '@carbon/icons-react';
+import { Add, Play, Subtract } from '@carbon/icons-react';
 // import Sidebar from '../components/nav/Header';
 import Layout from '../components/Layout';
 import { addMovieToMyList, removeMovieToMyList, updateMovieDuration, updateMovieStartedProps, updateMovieProgress, updateMovieEnded } from '../thunks/authActionCreator';
@@ -51,7 +51,7 @@ function Watch() {
         ended: ''    
     };
 
-    const {id, title, trailer, casts, year, duration, summary, poster, progress, started, ended} = movie
+    const {id, title, trailer, casts, year, duration, summary, poster, progress, started, ended, genre} = movie
 
     const movieDuration = Object.keys(storeState.auth.user).length ? Object.keys(storeState.auth.user.continueWatching).length && storeState.auth.user.continueWatching.hasOwnProperty(id) ? storeState.auth.user.continueWatching[id].hasOwnProperty('duration') ? storeState.auth.user.continueWatching[id].duration : null : null : null
 
@@ -61,11 +61,17 @@ function Watch() {
 
     const movieEnded = Object.keys(storeState.auth.user).length ? Object.keys(storeState.auth.user.continueWatching).length && storeState.auth.user.continueWatching.hasOwnProperty(id) ? storeState.auth.user.continueWatching[id].hasOwnProperty('ended') ? storeState.auth.user.continueWatching[id].ended : null : null : null
 
-    const castList = casts ? casts.map((cast) => {
-        return (
-            <span key={Date.now() + Math.random()}>{cast}</span>
-        )
-    }) : null;
+    // const castList = casts ? casts.map((cast) => {
+    //     return (
+    //         <span key={Date.now() + Math.random()}>{cast}</span>
+    //     )
+    // }) : null;
+    const genreList = Object.keys(storeState.auth.user).length ? genre.map(gen => {
+        return <li style={{color: 'white'}} key={Date.now() + Math.random()}>{gen}</li>
+    }) : null
+    const castsList = casts ? casts.map(cast => {
+        return cast
+    }).join(", ") : null
     // console.log('location', location)
 
     const playHandler = (movieID, authID, index) => {
@@ -162,47 +168,56 @@ function Watch() {
                             <div className="controlsContainer">
                                 <div className="controlsContainer_details">
                                     <h1 className='controlsContainer_details_title'>{title}</h1>
-                                    <div>
-                                        <span>{year}</span>
-                                        <span>{duration}</span>
+                                    <div className='controlsContainer_details_yearDuration'>
+                                        <span className='year'>{year}</span>
+                                        <span className='duration'>{duration}</span>
                                     </div>
-                                    <p style={{color: 'white'}}>{summary}</p>
-                                    {castList ? <p className='controlsContainer_details_cast'>Cast: {castList}</p> : null}
+                                    <p className="controlsContainer_details_summary">{summary}</p>
+                                    <ul className='controlsContainer_details_genre'>
+                                        {genreList}
+                                    </ul>
+                                    {castsList && <p className='controlsContainer_details_cast'><span>Cast: </span>{castsList}</p>}
                                     {
                                         movieEnded
                                         ? 
-                                            <p style={{color: 'white'}}>Watched</p>
+                                            <p className='controlsContainer_details_watched'>Watched</p>
                                         :
                                             null
 
                                     }
+                                    <div className="controlsContainer_details_progress">
+                                        {
+                                            movieProgress > 0 && movieProgress < movieDuration
+                                            ?
+                                                <>
+                                                    <ProgressBar className='progress' max={movieDuration} size='small' type='inline' value={storeState.auth.user.continueWatching[id].progress} label='' /><span className='percent' style={{color:'#fff'}}>{Math.floor(movieProgress / movieDuration * 100)} %</span>
+                                                </>
+                                            :
+                                                null
+
+                                        }
+                                    </div>
                                 </div>
-                                <div className="controlsContainer_play">
-                                    <Button onClick={() => playHandler(id, storeState.auth.user.uid, movieIndex)}>{!movieStarted && !movieProgress && !movieEnded ? 'Play' : movieProgress > 0 && movieProgress < movieDuration ? 'Continue Watching' : 'Watch again'}</Button>
-                                    {
-                                        movieProgress > 0 && movieProgress < movieDuration
-                                        ?
-                                            <>
-                                                <ProgressBar max={movieDuration} size='small' type='inline' value={storeState.auth.user.continueWatching[id].progress} label='Movie progress' /><span className='controlsContainer_progressPercent' style={{color:'#fff'}}>{Math.floor(movieProgress / movieDuration * 100)} %</span>
-                                            </>
-                                        :
-                                            null
-
-                                    }
+                                <div className="controlsContainer_buttons">
+                                    <div>
+                                        <Button className='vidControl' onClick={() => playHandler(id, storeState.auth.user.uid, movieIndex)}><Play />{!movieStarted && !movieProgress && !movieEnded ? 'Play' : movieProgress > 0 && movieProgress < movieDuration ? 'Continue Watching' : 'Watch again'}</Button>
+                                    </div>
+                                    <div>
+                                        {
+                                            myList.length 
+                                            ?
+                                                myList.includes(id) 
+                                                ? 
+                                                    <Button className='vidControl' kind='danger' onClick={() => removeToMyListHandler(id, storeState.auth.user.uid)}><Subtract />Remove from My List</Button>
+                                                :
+                                                    <Button className='vidControl' kind='secondary' onClick={() => addToMyListHandler(id, storeState.auth.user.uid)}><Add />Add to My List</Button>
+                                            :
+                                                <Button className='vidControl' kind='secondary' onClick={() => addToMyListHandler(id, storeState.auth.user.uid)}><Add />Add to My List</Button>
+                                        }
+                                    </div>
                                 </div>
                                 
-                                {
-                                    myList.length 
-                                    ?
-                                        myList.includes(id) 
-                                        ? 
-                                            <Button kind='danger' onClick={() => removeToMyListHandler(id, storeState.auth.user.uid)}><Add />Remove from My List</Button>
-                                        :
-                                            <Button kind='secondary' onClick={() => addToMyListHandler(id, storeState.auth.user.uid)}><Add />Add to My List</Button>
-                                    :
-                                        <Button kind='secondary' onClick={() => addToMyListHandler(id, storeState.auth.user.uid)}><Add />Add to My List</Button>
-                                }
-                                <Link to='/user/asdfasdf'>home</Link>
+
 
                                 {/* Notifications */}
                                 <ToastNotification className={`myListNotification ${addedNotif}`} title='Successfully added to My List' kind='success' />

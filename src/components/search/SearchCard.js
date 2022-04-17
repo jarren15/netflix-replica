@@ -8,7 +8,7 @@ function SearchCard({id, poster}) {
     })
 
     return (
-        <Link to={`/user/${storeState.auth.user.uid}/watch/${id}`} className='cds--col-max-3 cds--col-xlg-3 cds--col-lg-3 cds--col-md-2 cds--col-sm-4'>
+        <Link to={`/user/${storeState.auth.user.uid}/watch/${id}`} className='cds--col-max-4 cds--col-xlg-4 cds--col-lg-4 cds--col-md-2 cds--col-sm-4'>
             <div className="searchPage_card" style={{  
                 backgroundImage: `url(${poster})`,
                 backgroundPosition: 'center',

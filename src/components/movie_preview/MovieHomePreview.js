@@ -22,9 +22,12 @@ function MovieHomePreview({storeState, id, title, trailer, year, duration, summa
     const genreList = genre.map(gen => {
         return <li style={{color: 'white'}} key={Date.now() + Math.random()}>{gen}</li>
     })
+    // const castsList = casts ? casts.map(cast => {
+    //     return <li style={{color: 'white'}} key={Date.now() + Math.random()}>{cast}</li>
+    // }) : null
     const castsList = casts ? casts.map(cast => {
-        return <li style={{color: 'white'}} key={Date.now() + Math.random()}>{cast}</li>
-    }) : null
+        return cast
+    }).join(", ") : null
     
     useEffect(() => {
         setPlay(true)
@@ -36,32 +39,31 @@ function MovieHomePreview({storeState, id, title, trailer, year, duration, summa
     return (
         <div className="movieHomePreview">
             <div className="previewDetails">
-                <div className='previewLogoContainer'><img src="https://www.edigitalagency.com.au/wp-content/uploads/Netflix-N-Symbol-logo-red-transparent-RGB-png.png" alt="" /> <span style={{color: 'white'}}>WANNABE - FILM</span></div>
-                <h1 style={{color: 'white'}}>{title}</h1>
-                <div>
-                    <span style={{color: 'white'}}>{year}</span>
-                    <span style={{color: 'white'}}>{duration}</span>
+                <div className='previewDetails_logoContainer'><img src="https://www.edigitalagency.com.au/wp-content/uploads/Netflix-N-Symbol-logo-red-transparent-RGB-png.png" alt="" /> <span>COPYCAT - FILM</span></div>
+                <h1 className='previewDetails_title'>{title}</h1>
+                <div className='previewDetails_yearDuration'>
+                    <span className='year'>{year}</span>
+                    <span className='duration'>{duration}</span>
                 </div>
-                <p style={{color: 'white'}} className='previewSummary'>{summary}</p>
-                <ul>
+                <p className='previewDetails_summary'>{summary}</p>
+                <ul className='previewDetails_genre'>
                     {genreList}
                 </ul>
-                <ul>
-                    {castsList}
-                </ul>
+                {castsList && <p className='previewDetails_cast'><span>Cast: </span>{castsList}</p>}
                 {
                     movieEnded
                     ? 
-                        <p style={{color: 'white'}}>Watched</p>
+                        <p className='previewDetails_watched'>Watched</p>
                     :
                         null
                 }
-                <div className="previewProgress">
+                <div className="previewDetails_progress">
                     {
                         movieProgress > 0 && movieProgress < movieDuration
                         ?
                             <>
-                                <ProgressBar max={movieDuration} size='small' type='inline' value={storeState.auth.user.continueWatching[id].progress} label='Movie progress' /><span className='controlsContainer_progressPercent' style={{color:'#fff'}}>{Math.floor(movieProgress / movieDuration * 100)} %</span>
+                                <ProgressBar className='progress' max={movieDuration} size='small' type='inline' value={storeState.auth.user.continueWatching[id].progress} label='' />
+                                <span className='percent'>{Math.floor(movieProgress / movieDuration * 100)} %</span>
                             </>
                         :
                             null

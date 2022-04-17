@@ -81,7 +81,19 @@ a:active {
             font-size: 5.2rem;
             line-height: 1.1;
             margin: 0 0 2rem;
+            color: colors.$white;
             // color: $white-0;
+        }
+        .formHeading {
+            @include type.type-style('heading-03');
+            color: colors.$black;
+        }
+        &_buttons {
+            display: flex;
+            justify-content: center;
+            button {
+                margin: 0 10px;
+            }
         }
     }
 }
@@ -89,24 +101,99 @@ a:active {
 .MainPage {
     height: 100vh;
     padding-top: 30px;
-    .sidebar-container {
-        position: fixed;
-        top: 0;
-        left: 0;
-        bottom: 0;
-    }
+    background-color: colors.$black;
     .movieHomePreview {
         background-color: #000;
+        height: 60%;
         &:not(.no-content){
             display: flex;
             justify-content: space-between;
             .previewDetails {
                 width: 60%;
-                .previewLogoContainer {
+                padding-left: 1em;
+                padding-top: 0.5em;
+                &_logoContainer {
                     display: flex;
                     align-items: center;
                     img {
                         max-height: 50px;
+                    }
+                    span {
+                        color: colors.$white;
+                        @include type.type-style('body-compact-01');
+                    }
+                }
+                &_title {
+                    @include type.type-style('heading-04');
+                    color: colors.$white;
+                    padding-bottom: .3em;
+                }
+                &_yearDuration {
+                    color: colors.$white;
+                    padding-bottom: .7em;
+                    @include type.type-style('label-01');
+                    .year {
+                        padding-right: 1em;
+                    }
+                }
+                &_summary {
+                    color: colors.$white;
+                    @include type.type-style('label-01');
+                    padding-bottom: .7em;
+                }
+                &_genre {
+                    display: flex;
+                    flex-wrap: wrap;
+                    li {
+                        padding: 1em;
+                        position: relative;
+                        @include type.type-style('label-01');
+                        font-weight: bold;
+                        &:after {
+                            content: "\2022";
+                            position: absolute;
+                            top: 50%;
+                            left: 100%;
+                            transform: translate(-50%, -50%);
+                        }
+                        &:first-child {
+                            padding-left: 0;
+                        }
+                        &:last-child {
+                            padding-right: 0;
+                            &:after {
+                                content: unset;
+                            }
+                        }
+                    }
+                }
+                &_cast {
+                    color: colors.$white;
+                    @include type.type-style('label-01');
+                    span {
+                        font-weight: bold;
+                    }
+                }
+                &_watched {
+                    padding-top: .7em;
+                    color: colors.$green-30;
+                    @include type.type-style('label-01');
+                }
+                &_progress {
+                    padding-top: .7em;
+                    display: flex;
+                    align-items: center;
+                    width: 50%;
+                    .progress {
+                        flex: 1;
+                        .bx--progress-bar__label {
+                            display: none;
+                        }
+                    }
+                    .percent {
+                        @include type.type-style('label-01');
+                        color: colors.$white;
+                        padding-left: 1em;
                     }
                 }
             }
@@ -126,7 +213,38 @@ a:active {
                 }
             }
         }
-        height: 60%;
+    }
+    .movieHomePreview.no-content {
+        background-color: unset;
+        > div {
+            height: 100%;
+            .previewSlide {
+                position: relative;
+                &:before {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    z-index: 1;
+                    background: rgba(0, 0, 0, 0.7);
+                    box-shadow: inset 120px 100px 250px #000000, inset -120px -100px 250px #000000;
+                }
+                span {
+                    position: absolute;
+                    display: block;
+                    word-break: break-all;
+                    color: colors.$white;
+                    z-index: 1;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    @include type.type-style('heading-06');
+                }
+                height: 100%;
+            }
+        }
     }
     .movieCategories {
         height: 40%;
@@ -137,6 +255,9 @@ a:active {
                 .movieCategory_heading {
                     // @include carbon--type-style('productive-heading-03');
                     // @include carbon--type-style('productive-heading-03');
+                    @include type.type-style('heading-compact-01');
+                    color: colors.$white;
+                    padding: 0.3em 1em;
                 }
                 .movieCategory_slider {
                     height: 85.79%;
@@ -156,7 +277,8 @@ a:active {
 }
 
 .WatchPage {
-    height: calc(100vh - 30px);
+    height: 100vh;
+    padding-top: 30px;
     position: relative;
     &:before {
         content: '';
@@ -171,13 +293,92 @@ a:active {
     .controlsContainer {
         position: relative;
         width: 50%;
+        padding-top: .5em;
+        padding-left: 1em;
         &_details {
             &_title {
                 // @include carbon--type-style('expressive-heading-06');
-                color: #fff;
+                color: colors.$white;
+                @include type.type-style('heading-05');
+                padding-bottom: .3em;
+            }
+            &_yearDuration {
+                color: colors.$white;
+                padding-bottom: 1em;
+                @include type.type-style('body-01');
+                .year {
+                    padding-right: 1em;
+                }
+            }
+            &_summary {
+                color: colors.$white;
+                padding-bottom: 1em;
+                @include type.type-style('body-01');
+            }
+            &_genre {
+                display: flex;
+                flex-wrap: wrap;
+                li {
+                    padding: 1em;
+                    position: relative;
+                    @include type.type-style('body-01');
+                    font-weight: bold;
+                    &:after {
+                        content: "\2022";
+                        position: absolute;
+                        top: 50%;
+                        left: 100%;
+                        transform: translate(-50%, -50%);
+                    }
+                    &:first-child {
+                        padding-left: 0;
+                    }
+                    &:last-child {
+                        padding-right: 0;
+                        &:after {
+                            content: unset;
+                        }
+                    }
+                }
             }
             &_cast {
-                color: #fff;
+                color: colors.$white;
+                @include type.type-style('body-01');
+                span {
+                    font-weight: bold;
+                }
+            }
+            &_watched {
+                padding-top: 1em;
+                color: colors.$green-30;
+                @include type.type-style('body-01');
+            }
+            &_progress {
+                padding-top: 1em;
+                display: flex;
+                align-items: center;
+                width: 50%;
+                .progress {
+                    flex: 1;
+                    .bx--progress-bar__label {
+                        display: none;
+                    }
+                }
+                .percent {
+                    @include type.type-style('body-01');
+                    color: colors.$white;
+                    padding-left: 1em;
+                }
+            }
+        }
+        &_buttons {
+            padding-top: 1em;
+            .vidControl {
+                justify-content: flex-start;
+                min-width: 16rem;
+                svg {
+                    margin-right: 1.5em;
+                }
             }
         }
         .myListNotification {
@@ -205,32 +406,99 @@ a:active {
 }
 
 .myListPage {
-    padding-left: 100px;
+    min-height: 100vh;
+    padding-top: 30px;
+    background-color: colors.$black;
+    h1 {
+        @include type.type-style('heading-03');
+        padding: 20px;
+        color: colors.$white;
+    }
     &_card {
         margin-left: 1.5px;
         margin-right: 1.5px;
-        min-height: 33vh;
+        min-height: 50vh;
         width: 100%;
     }
 }
 
 .searchPage {
-    padding-left: 100px;
+    padding-top: 30px;
+    position: relative;
+    overflow: hidden;
+    background-color: colors.$black;
+    min-height: 100vh;
     &_controls {
         display: flex;
+        &_filter {
+            position: fixed;
+            z-index: 1;
+            top: 30px;
+            left: 0;
+            width: 200px;
+            height: calc(100vh - 30px);
+            overflow: hidden;
+            color: colors.$white;
+            background-color: colors.$black;
+            h1 {
+                @include type.type-style('heading-03');
+                padding: 20px;
+            }
+            > div {
+                height: 100%;
+                overflow: scroll;
+                .bx--form-item {
+                    padding: 0 10px;
+                    .bx--checkbox-label {
+                        &:before {
+                            border: 1px solid colors.$white;
+                        }
+                    }
+                }
+            }
+        }
+        &_searchField {
+            position: relative;
+            left: 200px;
+            width: calc(100vw - 200px);
+            &_resultsCount {
+                left: 200px;
+                width: calc(100vw - 200px);
+                padding: 10px 20px 5px 20px;
+                background-color: colors.$black;
+                color: colors.$white;
+                @include type.type-style('label-01');
+            }
+            ul {
+                background-color: colors.$cool-gray-10;
+                li {
+                    padding: 8px 20px;
+                    border: 1px solid colors.$cool-gray-30;
+                    @include type.type-style('label-01');
+                    cursor: pointer;
+                }
+            }
+        }
+        
     }
-    &_searchField {
-        // position: fixed;
-        // top: 0;
-        // width: 100%;
-    }
+    
     &_resultsContainer {
-        padding-top: 5rem;
+        margin-left: 200px;
+        margin-right: 0;
+        position: relative;
+        padding-left: 0;
+        padding-right: 0;
+        width: calc(100vw - 200px);
+        .cds--row {
+            width: 100%;
+            padding: 10px 20px 0 20px;
+            margin: 0;
+        }
     }
     &_card {
         margin-left: 1.5px;
         margin-right: 1.5px;
-        min-height: 33vh;
+        min-height: 50vh;
         width: 100%;
     }
 }
@@ -286,7 +554,6 @@ a:active {
         height: calc(100vh - 30px);
         background-color: colors.$cool-gray-100;
         transition: transform .3s cubic-bezier(0, .52, 0, 1);
-        padding: 30px;
         z-index: 1500;
         &_open {
             transform: translate3d(0vw, 0, 0);
@@ -295,29 +562,36 @@ a:active {
         &_close {
             transform: translate3d(-100vw, 0, 0);
         }
-        .sidebarLogo {
-            height: 50px;
-            width: 50px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: colors.$blue-100;
-            color: colors.$white;
-            border: 3px solid colors.$blue-30-hover;
-            @include type.type-style('heading-05');
-        }
-        .sidebarUsername {
-            text-align: center;
-            color: colors.$white;
-            display: block;
-            padding-top: 10px;
+        .sidebarUser {
+            padding: 30px;
+            .sidebarLogo {
+                height: 50px;
+                width: 50px;
+                border-radius: 50%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: colors.$blue-100;
+                color: colors.$white;
+                border: 3px solid colors.$blue-30-hover;
+                @include type.type-style('heading-05');
+            }
+            .sidebarUsername {
+                text-align: center;
+                color: colors.$white;
+                display: block;
+                padding-top: 10px;
+                @include type.type-style('body-compact-02');
+            }
         }
         ul {
             padding-top: 40px;
+            @include type.type-style('heading-02');
             li {
-                a, 
                 a {
+                    display: block;
+                    padding: 10px 20px;
+                    margin: 10px 0;
                     &:link,
                     &:visited {
                         color: colors.$white;
@@ -331,13 +605,29 @@ a:active {
                     color: colors.$blue-30-hover;
                 }
                 span {
+                    padding: 10px 20px;
+                    margin: 10px 0;
                     cursor: pointer;
                     color: colors.$white;
+                    display: block;
                     &:hover {
                         color: colors.$blue-30-hover
                     }
                 }
             }
         }
+    }
+}
+
+.scrollTopBtn {
+    position: fixed !important;
+    z-index: 100;
+    bottom: 10%;
+    right: 3%;
+    &_false {
+        display: none !important;
+    }
+    &_true {
+        display: flex !important;
     }
 }

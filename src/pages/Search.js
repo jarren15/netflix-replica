@@ -6,6 +6,8 @@ import CarbonSearch from "carbon-components-react/lib/components/Search/next/Sea
 import Checkbox from "carbon-components-react/lib/components/Checkbox";
 import SearchCard from "../components/search/SearchCard";
 import Layout from '../components/Layout';
+import { ArrowUp } from "@carbon/icons-react";
+import Button from "carbon-components-react/lib/components/Button";
 
 function Search() {
     const storeState = useSelector(state => {
@@ -14,8 +16,26 @@ function Search() {
     const [searchVal, setSearchVal] = useState('')
     const [hideSuggestions, setHideSuggestions] = useState(true)
     const [selectedFilter, setSelectedFilter] = useState([])
+    const [showSTTBtn, setShowSTTBtn] = useState(false)
 
     const genresArr = ['Action', 'Action fiction', 'Action Thriller', 'Adventure', 'Adventure fiction', 'Animation', 'Anime', 'British', 'Buddy', 'Buddy cop', 'Children\'s film', 'Comedy', 'Comedy horror', 'Comedy music', 'Coming-of-age story', 'Costume drama', 'Crime fiction', 'Crime film', 'Crime Thriller', 'Cult film', 'Cyberpunk', 'Dark comedy', 'Dark fantasy', 'Disaster', 'Docufiction', 'Documentary', 'Documentary film', 'Drama', 'Dramedy', 'Family film', 'Fantasy', 'Heist', 'Historical drama', 'Historical fiction', 'Historical film', 'History', 'Horror', 'Indie film', 'Magical realism', 'Manga', 'Martial arts', 'Melodrama', 'Miniseries', 'Monster', 'Music', 'Musical', 'Musical drama', 'Mystery', 'Nature documentary', 'Neo-noir', 'Noir', 'Post-apocalyptic', 'Prison', 'Psychological horror', 'Psychological thriller', 'Road', 'Romance', 'Romantic comedy', 'Science & nature documentary', 'Science fantasy', 'Science fiction', 'Slasher', 'Splatter', 'Sports', 'Sports manga', 'Superhero', 'Supernatural', 'Suspense', 'Sword-and-sandal', 'Tech noir', 'Teen', 'Television documentary', 'Thriller', 'True crime', 'True crime documentary', 'War', 'Zombie']
+
+    const scrollFunction = () => {
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            setShowSTTBtn(true)
+        } else {
+            setShowSTTBtn(false)
+        }
+    }
+
+    const topFunction = () => {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+    }
+
+    window.onscroll = () => {
+        scrollFunction()
+    }
 
     const findCommonElement = (arr1, arr2) => {
         // Loop for arr1
@@ -42,9 +62,9 @@ function Search() {
     const onSearchChangeHandler = (e) => {
         setSearchVal(e.target.value)
         setHideSuggestions(false)
-        if(searchVal.length == 0){
-            setHideSuggestions(true)
-        }
+        // if(searchVal == ''){
+        //     setHideSuggestions(true)
+        // }
     }
 
     const mapSuggestionToSearchVal = (e) => {
@@ -107,7 +127,7 @@ function Search() {
 
     const searchSuggestions = Object.keys(storeState.auth.user).length 
     ? 
-        searchVal.length != ''
+        searchVal != ''
         ?
             storeState.auth.user.movies.filter(movie => {
                 return movie.title.toLowerCase().indexOf(searchVal.toLowerCase()) > -1
@@ -136,11 +156,31 @@ function Search() {
             <Layout>
                 <section className="searchPage">
                     <div className="searchPage_controls">
-                        <div className="searchPage_filter">
-                            {categoriesAndGenres}
+                        <div className="searchPage_controls_filter">
+                            <h1>Genres & Categories</h1>
+                            <div>
+                                {categoriesAndGenres}
+                            </div>
                         </div>
-                        <div className="searchPage_searchField">
+                        <div className="searchPage_controls_searchField">
                             <CarbonSearch size="lg" placeholder='Movie title' value={searchVal} labelText="Search" onChange={(e) => onSearchChangeHandler(e)} />
+                            <div className="searchPage_controls_searchField_resultsCount">
+                                {
+                                    searchedMovies 
+                                        ?
+                                            searchedMovies.length == 1
+                                            ?
+                                                `${searchedMovies.length} result found.`
+                                            :
+                                                searchedMovies.length > 1
+                                                ?
+                                                    `${searchedMovies.length} results found.`
+                                                :
+                                                'No result found.' 
+                                        :
+                                            null 
+                                }
+                            </div>
                             {
                                 hideSuggestions 
                                 ?
@@ -151,29 +191,14 @@ function Search() {
                                     </ul>
                             }
                         </div>
+                        
                     </div>
                     <div className="searchPage_resultsContainer cds--grid cds--grid--condensed">
-                        <div className="cds--row">
-                            {
-                                searchedMovies 
-                                    ?
-                                        searchedMovies.length == 1
-                                        ?
-                                            `${searchedMovies.length} result found.`
-                                        :
-                                            searchedMovies.length > 1
-                                            ?
-                                                `${searchedMovies.length} results found.`
-                                            :
-                                            'No result found.' 
-                                    :
-                                        null 
-                            }
-                        </div>
                         <div className="cds--row">
                             {searchedMovies}
                         </div>
                     </div>
+                    <Button className={`scrollTopBtn scrollTopBtn_${showSTTBtn}`} hasIconOnly iconDescription="Back to top" onClick={topFunction} renderIcon={ArrowUp} />
                 </section>
             </Layout>
             :

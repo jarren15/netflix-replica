@@ -1,12 +1,13 @@
 import React from "react";
 import { Menu, Logout, Close } from '@carbon/icons-react'; 
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { signOut } from "../../thunks/authActionCreator";
 import { useEffect, useState } from "react";
 
 function Nav({storeAuth}) {
     const dispatch = useDispatch()
+    const location = useLocation();
     const [showSidebar, setShowSidebar] = useState(false)
     const userInitials = storeAuth.user.userName.charAt(0).toUpperCase();
     const logOut = () => {
@@ -15,6 +16,7 @@ function Nav({storeAuth}) {
     const toggleSidebar = () => {
         setShowSidebar(!showSidebar)
     }
+    console.log(location.pathname.indexOf('myList') > -1, location.pathname.indexOf('search') > -1, location.pathname.indexOf('watch') > -1)
     return (
         <>
             <section className="headerContainer">
@@ -27,13 +29,15 @@ function Nav({storeAuth}) {
                 </span>
             </section>
             <div className={ !showSidebar ? 'sidebarContainer sidebarContainer_close' : 'sidebarContainer sidebarContainer_open'}>
-                <div className="sidebarLogo">
-                    {userInitials}
+                <div className="sidebarUser">
+                    <div className="sidebarLogo">
+                        {userInitials}
+                    </div>
+                    <span className="sidebarUsername">{storeAuth.user.userName}</span>
                 </div>
-                <span className="sidebarUsername">{storeAuth.user.userName}</span>
                 <ul>
                     <li>
-                        <NavLink className={(navData) => (navData.isActive ? 'active' : '')} to={`/user/${storeAuth.user.uid}`}>Home</NavLink>
+                        <Link className={(location.pathname.indexOf('myList') > -1) || (location.pathname.indexOf('search') > -1) || (location.pathname.indexOf('watch') > -1) ? '' : 'active' } to={`/user/${storeAuth.user.uid}`}>Home</Link>
                     </li>
                     <li>
                         <NavLink className={(navData) => (navData.isActive ? 'active' : '')} to={`/user/${storeAuth.user.uid}/search`}>Search</NavLink>
