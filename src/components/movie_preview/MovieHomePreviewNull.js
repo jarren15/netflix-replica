@@ -39,7 +39,7 @@ function MovieHomePreviewNull({storeState}) {
         )
     })
 
-    console.log(filteredMovies)
+    // console.log(filteredMovies)
 
 
     return (

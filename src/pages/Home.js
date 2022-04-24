@@ -102,8 +102,8 @@ function Home() {
 
                     {/* Sign-In */}
                     <Modal onRequestSubmit={() => onSignIn(signInDetails.sIemail, signInDetails.sIpassword)} secondaryButtonText='Cancel' primaryButtonText='Submit' open={openSignIn} onRequestClose={onSignInCancel}>
-                        <h1 class='formHeading'>Sign In</h1>
-                        <form autocomplete='off'>
+                        <h1 className='formHeading'>Sign In</h1>
+                        <form autoComplete='off'>
                             <TextInput onChange={(e) => signInValues(e)} value={signInDetails.sIemail} name='sIemail' id='sIemail' type="email" labelText='Email' />
                             <TextInput onChange={(e) => signInValues(e)} value={signInDetails.sIpassword}  name='sIpassword' id='sIpassword' type="password" labelText='Password' />
                             {
@@ -116,8 +116,8 @@ function Home() {
                     
                     {/* Sign-Up */}
                     <Modal onRequestSubmit={() => onSignUp(signUpDetails.sUuserName, signUpDetails.sUemail, signUpDetails.sUpassword)} secondaryButtonText='Cancel' primaryButtonText='Submit' open={openSignUp} onRequestClose={onSignUpCancel}>
-                        <h1 class='formHeading'>Sign Up</h1>
-                        <form autocomplete='off'>
+                        <h1 className='formHeading'>Sign Up</h1>
+                        <form autoComplete='off'>
                             <TextInput onChange={(e) => signUpValues(e)} value={signUpDetails.sUuserName} name='sUuserName' id='sOuserName' type="text" labelText='User Name' />
                             <TextInput onChange={(e) => signUpValues(e)} value={signUpDetails.sUemail} name='sUemail' id='sOemail' type="email" labelText='Email' />
                             <TextInput onChange={(e) => signUpValues(e)} value={signUpDetails.sUpassword}  name='sUpassword' id='sOpassword' type="password" labelText='Password' />

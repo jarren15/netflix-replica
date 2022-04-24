@@ -8,17 +8,29 @@ import SearchCard from "../components/search/SearchCard";
 import Layout from '../components/Layout';
 import { ArrowUp } from "@carbon/icons-react";
 import Button from "carbon-components-react/lib/components/Button";
+import Slider from "carbon-components-react/lib/components/Slider";
 
 function Search() {
     const storeState = useSelector(state => {
         return state;
     })
+    const movieYears = Object.keys(storeState.auth.user).length 
+    ?
+        storeState.auth.user.movies.map(movie => {
+            return Number(movie.year)
+        })
+    :
+        null
+
     const [searchVal, setSearchVal] = useState('')
     const [hideSuggestions, setHideSuggestions] = useState(true)
     const [selectedFilter, setSelectedFilter] = useState([])
+    const [sliderVal, setSliderVal] = useState(1900)
     const [showSTTBtn, setShowSTTBtn] = useState(false)
 
     const genresArr = ['Action', 'Action fiction', 'Action Thriller', 'Adventure', 'Adventure fiction', 'Animation', 'Anime', 'British', 'Buddy', 'Buddy cop', 'Children\'s film', 'Comedy', 'Comedy horror', 'Comedy music', 'Coming-of-age story', 'Costume drama', 'Crime fiction', 'Crime film', 'Crime Thriller', 'Cult film', 'Cyberpunk', 'Dark comedy', 'Dark fantasy', 'Disaster', 'Docufiction', 'Documentary', 'Documentary film', 'Drama', 'Dramedy', 'Family film', 'Fantasy', 'Heist', 'Historical drama', 'Historical fiction', 'Historical film', 'History', 'Horror', 'Indie film', 'Magical realism', 'Manga', 'Martial arts', 'Melodrama', 'Miniseries', 'Monster', 'Music', 'Musical', 'Musical drama', 'Mystery', 'Nature documentary', 'Neo-noir', 'Noir', 'Post-apocalyptic', 'Prison', 'Psychological horror', 'Psychological thriller', 'Road', 'Romance', 'Romantic comedy', 'Science & nature documentary', 'Science fantasy', 'Science fiction', 'Slasher', 'Splatter', 'Sports', 'Sports manga', 'Superhero', 'Supernatural', 'Suspense', 'Sword-and-sandal', 'Tech noir', 'Teen', 'Television documentary', 'Thriller', 'True crime', 'True crime documentary', 'War', 'Zombie']
+
+    
 
     const scrollFunction = () => {
         if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
@@ -87,16 +99,25 @@ function Search() {
             })
         }
     }
+
+    const sliderChange = ({value}) => {
+        setHideSuggestions(true)
+        setSliderVal(value)
+    }
+
+
+    
     
 
     const searchedMovies = Object.keys(storeState.auth.user).length 
     ? 
-        searchVal.length || selectedFilter.length
+        searchVal.length || selectedFilter.length || sliderVal
         ?
             storeState.auth.user.movies.filter(movie => {
-                if(findCommonElement(selectedFilter, movie.genre) || searchVal.length > 0) {
+                if(findCommonElement(selectedFilter, movie.genre) || searchVal.length > 0 || sliderVal) {
                     var selectedFilterBoo;
                     var searchValBool;
+                    var sliderValBool
                     if(searchVal.length > 0) {
                         if(movie.title.toLowerCase().indexOf(searchVal.toLowerCase()) > -1 && searchVal.toLowerCase() != '') {
                             searchValBool = true
@@ -113,7 +134,13 @@ function Search() {
                         selectedFilterBoo = false
                     }
 
-                    return selectedFilterBoo || searchValBool
+                    if (movie.year == String(sliderVal) ) {
+                        sliderValBool = true
+                    } else {
+                        sliderValBool = false
+                    }
+
+                    return selectedFilterBoo || searchValBool || sliderValBool
                 } else {
                     return false
                 }
@@ -156,10 +183,23 @@ function Search() {
             <Layout>
                 <section className="searchPage">
                     <div className="searchPage_controls">
-                        <div className="searchPage_controls_filter">
-                            <h1>Genres & Categories</h1>
-                            <div>
-                                {categoriesAndGenres}
+                        <div className="searchPage_controls_filters">
+                            <div className="searchPage_controls_filters_genreCategory">
+                                <p className='heading'>Genres & Categories</p>
+                                <div>
+                                    {categoriesAndGenres}
+                                </div>
+                            </div>
+                            <div className="searchPage_controls_filters_year">
+                                <p className="heading">Year</p>
+                                <Slider
+                                    max={movieYears && Math.max(...movieYears)}
+                                    min={1900}
+                                    noValidate
+                                    stepMultiplier={1}
+                                    value={sliderVal}
+                                    onChange={sliderChange}
+                                />
                             </div>
                         </div>
                         <div className="searchPage_controls_searchField">
@@ -202,7 +242,9 @@ function Search() {
                 </section>
             </Layout>
             :
-                <div className="loadingScreen">Loading...</div>
+                <div className="loadingScreen">
+                    <div class="loader"></div>
+                </div>
     )
 }
 

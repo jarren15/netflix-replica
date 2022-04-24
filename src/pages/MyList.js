@@ -61,7 +61,9 @@ function MyList() {
                     </section>
                 </Layout>
             :
-                <div className="loadingScreen">Loading...</div>
+                <div className="loadingScreen">
+                    <div class="loader"></div>
+                </div>
     )
 }
 

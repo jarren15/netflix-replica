@@ -52,7 +52,7 @@ function Main() {
 
     // console.log(storeState);
 
-    console.log(storeState)
+    // console.log(storeState)
     
     useEffect(() => {
         //Initial read
@@ -86,7 +86,7 @@ function Main() {
                 </Layout>
             :
                 <div className="loadingScreen">
-                    Loading...
+                    <div class="loader"></div>
                 </div>
     );
 }

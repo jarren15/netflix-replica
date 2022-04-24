@@ -88,6 +88,12 @@ a:active {
             @include type.type-style('heading-03');
             color: colors.$black;
         }
+        .formErr {
+            padding: 20px;
+            text-align: center;
+            color: colors.$red-50;
+            @include type.type-style('label-01');
+        }
         &_buttons {
             display: flex;
             justify-content: center;
@@ -430,40 +436,83 @@ a:active {
     min-height: 100vh;
     &_controls {
         display: flex;
-        &_filter {
+        &_filters {
             position: fixed;
             z-index: 1;
             top: 30px;
             left: 0;
-            width: 200px;
+            width: 300px;
             height: calc(100vh - 30px);
             overflow: hidden;
             color: colors.$white;
             background-color: colors.$black;
-            h1 {
-                @include type.type-style('heading-03');
-                padding: 20px;
-            }
-            > div {
-                height: 100%;
-                overflow: scroll;
-                .bx--form-item {
-                    padding: 0 10px;
-                    .bx--checkbox-label {
-                        &:before {
-                            border: 1px solid colors.$white;
+            &_genreCategory {
+                height: 80%;
+                overflow-y: scroll;
+                .heading {
+                    @include type.type-style('heading-compact-01');
+                    position: sticky;
+                    top: 0;
+                    // background-color: #0353e9;
+                    background-color: colors.$cool-gray-60;
+                    z-index: 1;
+                    padding: 10px 15px;
+                }
+                > div {
+                    .bx--form-item {
+                        padding: 0 10px;
+                        .bx--checkbox-label {
+                            &:before {
+                                border: 1px solid colors.$white;
+                            }
                         }
                     }
                 }
             }
+            &_year {
+                .heading {
+                    @include type.type-style('heading-compact-01');
+                    // background-color: #0353e9;
+                    background-color: colors.$cool-gray-60;
+                    padding: 10px 15px;
+                }
+                .bx--slider-container {
+                    padding: 10px 15px;
+                    width: 100%;
+                    .bx--slider {
+                        flex: 1;
+                        min-width: unset;
+                        &__thumb {
+                            background-color: colors.$white;
+                        }
+                        &__filled-track {
+                            background-color: #0f62fe;
+                        }
+                    }
+                    .bx--slider__range-label {
+                        margin-left: 0;
+                        margin-right: 0;
+                        color: colors.$white;
+                        @include type.type-style('label-01');
+                    }
+                    .bx--slider-text-input {
+                        @include type.type-style('label-01');
+                        margin-left: 16px;
+                    }
+                }
+            }
+            h1 {
+                @include type.type-style('heading-03');
+                padding: 20px;
+            }
         }
         &_searchField {
             position: relative;
-            left: 200px;
-            width: calc(100vw - 200px);
+            left: 300px;
+            width: calc(100vw - 300px);
             &_resultsCount {
-                left: 200px;
-                width: calc(100vw - 200px);
+                left: 300px;
+                width: calc(100vw - 300px);
                 padding: 10px 20px 5px 20px;
                 background-color: colors.$black;
                 color: colors.$white;
@@ -483,12 +532,12 @@ a:active {
     }
     
     &_resultsContainer {
-        margin-left: 200px;
+        margin-left: 300px;
         margin-right: 0;
         position: relative;
         padding-left: 0;
         padding-right: 0;
-        width: calc(100vw - 200px);
+        width: calc(100vw - 300px);
         .cds--row {
             width: 100%;
             padding: 10px 20px 0 20px;
@@ -571,9 +620,9 @@ a:active {
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                background-color: colors.$blue-100;
+                background-color: #0353e9;
                 color: colors.$white;
-                border: 3px solid colors.$blue-30-hover;
+                border: 3px solid colors.$white;
                 @include type.type-style('heading-05');
             }
             .sidebarUsername {
@@ -589,29 +638,39 @@ a:active {
             @include type.type-style('heading-02');
             li {
                 a {
-                    display: block;
+                    display: flex;
                     padding: 10px 20px;
                     margin: 10px 0;
+                    align-items: center;
+                    justify-content: center;
                     &:link,
                     &:visited {
                         color: colors.$white;
                     }
                     &:hover,
                     &:active {
-                        color: colors.$blue-30-hover;
+                        color: #0353e9;
+                    }
+                    svg {
+                        margin-right: .5em;
                     }
                 }
                 a.active {
-                    color: colors.$blue-30-hover;
+                    color: #0353e9;
                 }
                 span {
                     padding: 10px 20px;
                     margin: 10px 0;
                     cursor: pointer;
                     color: colors.$white;
-                    display: block;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
                     &:hover {
-                        color: colors.$blue-30-hover
+                        color: #0353e9
+                    }
+                    svg {
+                        margin-right: .5em;
                     }
                 }
             }
@@ -630,4 +689,25 @@ a:active {
     &_true {
         display: flex !important;
     }
+}
+
+.loadingScreen {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .loader {
+        border: 16px solid #f3f3f3; /* Light grey */
+        border-top: 16px solid #0353e9; /* Blue */
+        border-radius: 50%;
+        width: 120px;
+        height: 120px;
+        animation: spin 2s linear infinite;
+    }
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
