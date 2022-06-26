@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Layout from '../components/Layout';
-import { Link, Navigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import MyListCard from '../components/my_list/MyListCard';
 import { ArrowUp } from "@carbon/icons-react";
 import Button from "carbon-components-react/lib/components/Button";

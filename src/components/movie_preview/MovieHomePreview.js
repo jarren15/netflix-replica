@@ -5,7 +5,6 @@ import ProgressBar from 'carbon-components-react/lib/components/ProgressBar';
 
 function MovieHomePreview({storeState, id, title, trailer, year, duration, summary, genre, casts}) {
     // console.log('CHeck me', hovered)
-    const [mute, setMute] = useState(true);
     const [play, setPlay] = useState(false);
     // const {title, trailer, year, duration, summary, genre} = hovered[0];
 

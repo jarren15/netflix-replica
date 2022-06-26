@@ -5,8 +5,7 @@
   "dependencies": {
     "@carbon/colors": "^10.37.1",
     "@carbon/icons-react": "^11.0.2",
-    "@carbon/layout": "^11.0.0",
-    "@carbon/type": "^10.44.0",
+    "@carbon/type": "^11.4.0",
     "@testing-library/jest-dom": "^5.16.3",
     "@testing-library/react": "^12.1.4",
     "@testing-library/user-event": "^13.5.0",
@@ -27,6 +26,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "serve": "node ./test.js",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

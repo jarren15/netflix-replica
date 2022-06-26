@@ -2,10 +2,6 @@ import React from 'react';
 import { useEffect } from 'react';
 import MovieCategorySlider from './MovieCategorySlider';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
-import { getCategories, watchCategories } from '../../thunks/categoriesActionCreator';
-import { getMovies, watchMovies } from '../../thunks/moviesActionCreator';
 
 
 function MovieCategories({categories, movies, continueWatching, user}) {

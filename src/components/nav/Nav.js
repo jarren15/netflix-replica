@@ -3,7 +3,7 @@ import { Menu, Logout, Close } from '@carbon/icons-react';
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { signOut } from "../../thunks/authActionCreator";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Search as SearchIcon, Home as HomeIcon, Logout as LogoutIcon, Playlist } from '@carbon/icons-react';
 
 function Nav({storeAuth}) {

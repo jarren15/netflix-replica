@@ -12,10 +12,9 @@ import Search from './pages/Search';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 // import { getAuth } from 'firebase/auth';
-import { auth } from './firebaseConfig';
-import { readAuth, watchAuth, watchUserProps } from './thunks/authActionCreator';
-import { getCategories, watchCategories } from './thunks/categoriesActionCreator';
-import { getMovies, watchMovies, moviesCopy } from './thunks/moviesActionCreator';
+import { watchAuth, watchUserProps } from './thunks/authActionCreator';
+import { watchCategories } from './thunks/categoriesActionCreator';
+
 
 function App() {
   const dispatch = useDispatch()

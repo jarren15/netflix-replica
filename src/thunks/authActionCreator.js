@@ -1,6 +1,6 @@
 import { auth, db } from "../firebaseConfig";
 import { createUserWithEmailAndPassword, onAuthStateChanged, signOut as signOutWithEmailAndPassword, signInWithEmailAndPassword} from "firebase/auth";
-import { getDoc, doc, setDoc, onSnapshot, updateDoc, addDoc, collection, getDocs, arrayUnion, arrayRemove } from "firebase/firestore";
+import { doc, setDoc, onSnapshot, updateDoc, collection, getDocs, arrayUnion, arrayRemove } from "firebase/firestore";
 
 export const signUp = (username, email, password) => {
     return async (dispatch, getState) => {

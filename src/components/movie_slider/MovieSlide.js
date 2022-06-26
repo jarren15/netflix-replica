@@ -1,7 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { SwiperSlide } from 'swiper/react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { red } from '@carbon/colors';
 import { useDispatch } from 'react-redux';
 import { hoveredMovie } from '../../thunks/hoveredMovieActionCreator';
 // import { Button } from 'carbon-components-react';

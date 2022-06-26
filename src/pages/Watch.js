@@ -1,14 +1,14 @@
 import React from 'react';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Link, useParams, Navigate } from 'react-router-dom';
+import { useParams, Navigate } from 'react-router-dom';
 import ReactPlayer from 'react-player';
 import Button from 'carbon-components-react/lib/components/Button';
 import { Add, Play, Subtract } from '@carbon/icons-react';
 // import Sidebar from '../components/nav/Header';
 import Layout from '../components/Layout';
 import { addMovieToMyList, removeMovieToMyList, updateMovieDuration, updateMovieStartedProps, updateMovieProgress, updateMovieEnded } from '../thunks/authActionCreator';
-import { InlineNotification, ToastNotification } from 'carbon-components-react';
+import { ToastNotification } from 'carbon-components-react';
 import ProgressBar from 'carbon-components-react/lib/components/ProgressBar';
 
 

@@ -1,11 +1,6 @@
 import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import MovieSlide from './MovieSlide';
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-// import { Button } from 'carbon-components-react';
-// import { ChevronRight32 } from '@carbon/icons-react';
-import { getMovies, watchMovies } from '../../thunks/moviesActionCreator';
 
 function MovieCategorySlider({id, name, catID, movies, continueWatching, user}) {
     const categorySpecificMovies = movies.filter(movie => {

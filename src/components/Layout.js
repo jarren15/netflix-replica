@@ -1,6 +1,5 @@
 import React from "react";
 import Nav from "./nav/Nav";
-import { useState } from "react";
 import { useSelector } from "react-redux";
 
 function Layout({children}) {

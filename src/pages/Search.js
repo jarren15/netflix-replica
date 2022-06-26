@@ -1,7 +1,7 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import CarbonSearch from "carbon-components-react/lib/components/Search/next/Search";
 import Checkbox from "carbon-components-react/lib/components/Checkbox";
 import SearchCard from "../components/search/SearchCard";

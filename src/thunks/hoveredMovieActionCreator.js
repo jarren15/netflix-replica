@@ -1,5 +1,4 @@
-import { getDocs, collection, onSnapshot, updateDoc, doc } from "firebase/firestore";
-import { db } from "../firebaseConfig";
+
 
 export const hoveredMovie = (id) => {
     return (dispatch, getState) => {

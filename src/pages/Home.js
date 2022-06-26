@@ -1,7 +1,6 @@
 import React from 'react';
-import { Link, Navigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { Button, Modal, TextInput} from 'carbon-components-react';
-import { ChevronRight } from '@carbon/icons-react';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { signUp, signIn } from '../thunks/authActionCreator';

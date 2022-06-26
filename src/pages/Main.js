@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 // import ReactPlayer from 'react-player/youtube'
 import MovieHomePreview from '../components/movie_preview/MovieHomePreview';
 import MovieHomePreviewNull from '../components/movie_preview/MovieHomePreviewNull';
@@ -8,11 +8,6 @@ import Layout from '../components/Layout';
 // import Sidebar from '../components/nav/Sidebar';
 import { useSelector, useDispatch } from 'react-redux';
 import { Navigate } from 'react-router-dom';
-import { addDoc, collection, deleteDoc, query, where, getDocs, doc } from 'firebase/firestore';
-import { db, auth } from '../firebaseConfig';
-import { movies } from '../upload';
-import { getCategories, watchCategories } from '../thunks/categoriesActionCreator';
-import { getMovies, watchMovies } from '../thunks/moviesActionCreator';
 
 function Main() {
 
